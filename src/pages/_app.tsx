@@ -1,10 +1,15 @@
 import type { AppProps } from 'next/app'
 
-import { ChakraProvider } from '@chakra-ui/react'
+import { Box, ChakraProvider } from '@chakra-ui/react'
 import { extendTheme } from '@chakra-ui/react'
+import { defineStyleConfig } from '@chakra-ui/react';
 
 import '@fontsource/spartan'
-import { defineStyleConfig } from '@chakra-ui/react';
+
+import TopBar from '@/components/TopBar';
+import Headers from '@/components/Headers';
+
+
 
 
 export const buttonTheme = defineStyleConfig({
@@ -13,6 +18,38 @@ export const buttonTheme = defineStyleConfig({
     textTransform: 'uppercase',
     borderRadius: 'none',
     paddingX: '1.5rem',
+    
+    _hover: {
+      backgroundColor: 'brand.800',
+    }
+  },
+
+  sizes: {
+    sm: {
+      fontSize: '0.6667rem'
+    },
+    md: {
+      fontSize: '0.7222rem'
+    },
+    lg: {
+      fontSize: '0.7222rem'
+    },
+    xl: {
+      fontSize: '1rem',
+      height: '3.5556rem',
+      paddingX: '3rem'
+    },
+  },
+
+  variants: {
+    primary: {
+      backgraundColor: 'brand.900',
+      color: 'white'
+    }
+  },
+
+  defaultProps: {
+    variant: 'primary'
   }
 })
 
@@ -35,12 +72,21 @@ const theme = extendTheme({
     body: `"Spartan", sans-serif`,
   },
   components: {
-    Button: buttonTheme
+    Button: buttonTheme,
+    Container: {
+      baseStyle: {
+        maxW: '71.375rem',
+      },
+    },
   },
 });
 
 export default function App({ Component, pageProps }: AppProps) {
   return <ChakraProvider theme={theme} >
+    <TopBar />
+    <Box>
+      <Headers />
+    </Box>
     <Component {...pageProps} />
   </ChakraProvider>
 
